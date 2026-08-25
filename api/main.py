@@ -112,7 +112,7 @@ def chat(req: ChatRequest):
     try:
         updated, reply, tool_trace, pending = run_agent_turn(messages, ctx)
     except Exception as exc:
-        raise HTTPException(502, f"Agent error: {exc}") from exc
+        raise HTTPException(500, f"Agent error: {exc}") from exc
 
     return {
         "reply": reply,

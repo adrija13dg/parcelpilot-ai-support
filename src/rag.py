@@ -7,23 +7,32 @@ from functools import lru_cache
 
 import faiss
 import numpy as np
-from sentence_transformers import SentenceTransformer
+from fastembed import TextEmbedding
 
 from src.access import SessionContext, filter_document_metadata
 from src.config import CHUNKS_PATH, EMBEDDING_MODEL, FAISS_INDEX_PATH, INDEX_DIR
 from src.documents import build_document_chunks
 
+# fastembed uses ONNX — ~10x less RAM than sentence-transformers/PyTorch on Render free tier
+FASTEMBED_MODEL = f"sentence-transformers/{EMBEDDING_MODEL}"
+
 
 class DocumentIndex:
     def __init__(self) -> None:
-        self.model: SentenceTransformer | None = None
+        self.model: TextEmbedding | None = None
         self.index: faiss.Index | None = None
         self.chunks: list[dict] = []
 
-    def _ensure_model(self) -> SentenceTransformer:
+    def _ensure_model(self) -> TextEmbedding:
         if self.model is None:
-            self.model = SentenceTransformer(EMBEDDING_MODEL)
+            self.model = TextEmbedding(model_name=FASTEMBED_MODEL)
         return self.model
+
+    def _encode(self, texts: list[str]) -> np.ndarray:
+        model = self._ensure_model()
+        vectors = np.array(list(model.embed(texts)), dtype=np.float32)
+        faiss.normalize_L2(vectors)
+        return vectors
 
     def build(self) -> None:
         INDEX_DIR.mkdir(parents=True, exist_ok=True)
@@ -31,11 +40,8 @@ class DocumentIndex:
         if not self.chunks:
             raise RuntimeError("No PDF chunks found. Add PDFs to data/ and rebuild the index.")
 
-        model = self._ensure_model()
         texts = [c["text"] for c in self.chunks]
-        embeddings = model.encode(texts, show_progress_bar=False, convert_to_numpy=True)
-        embeddings = embeddings.astype("float32")
-        faiss.normalize_L2(embeddings)
+        embeddings = self._encode(texts)
 
         dim = embeddings.shape[1]
         index = faiss.IndexFlatIP(dim)
@@ -65,10 +71,7 @@ class DocumentIndex:
         self.ensure_ready()
         assert self.index is not None
 
-        model = self._ensure_model()
-        q = model.encode([query], convert_to_numpy=True).astype("float32")
-        faiss.normalize_L2(q)
-
+        q = self._encode([query])
         scores, indices = self.index.search(q, min(top_k * 3, len(self.chunks)))
         results: list[dict] = []
         seen_sources: set[str] = set()
