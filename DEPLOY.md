@@ -1,6 +1,21 @@
 # Deploy ParcelPilot — public URL
 
-## Option A — GitHub Codespaces (hosted on GitHub)
+## Option A — Render (recommended, one-click)
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/adrija13dg/parcelpilot-ai-support)
+
+1. Click the button above (or open [render.com/deploy?repo=...](https://render.com/deploy?repo=https://github.com/adrija13dg/parcelpilot-ai-support))
+2. Sign in to Render → connect GitHub → **Approve** the blueprint
+3. Set **`GROQ_API_KEY`** in the form (required for chat)
+4. Click **Deploy Blueprint** → URL like `https://parcelpilot-ai-support.onrender.com`
+
+**Note:** First deploy takes ~8–12 min (Docker builds React + installs ML libs). Free tier sleeps after 15 min idle.
+
+Pushes to `main` auto-redeploy after the blueprint is linked.
+
+---
+
+## Option B — GitHub Codespaces (hosted on GitHub)
 
 Best if you want everything on GitHub without a third-party host.
 
@@ -12,19 +27,17 @@ Best if you want everything on GitHub without a third-party host.
 
 ---
 
-## Option B — Render (recommended, permanent free URL)
+## Option C — Render manual (dashboard)
 
-1. **Push to GitHub** (create repo at github.com → upload or `git push`)
+1. Push to GitHub (already done: `adrija13dg/parcelpilot-ai-support`)
 2. Go to [render.com](https://render.com) → **New +** → **Blueprint** → connect repo
 3. Render reads `render.yaml` automatically
-4. Add secret **`GROQ_API_KEY`** (or `GEMINI_API_KEY` + `LLM_PROVIDER=gemini`) in the dashboard
+4. Add secret **`GROQ_API_KEY`** in the dashboard
 5. Deploy → URL like `https://parcelpilot-ai-support.onrender.com`
-
-**Note:** First deploy takes ~5–10 min (Docker + ML models). Free tier sleeps after 15 min idle.
 
 ---
 
-## Option C — Quick demo tunnel (today, laptop must stay on)
+## Option D — Quick demo tunnel (today, laptop must stay on)
 
 ```powershell
 # Terminal 1 — start app

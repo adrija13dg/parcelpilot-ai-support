@@ -1,9 +1,16 @@
-# ParcelPilot — production container
+# ParcelPilot — production container (builds frontend inside Docker for Render)
+FROM node:20-slim AS frontend-build
+
+WORKDIR /app/frontend
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm ci
+COPY frontend/ ./
+RUN npm run build
+
 FROM python:3.12-slim
 
 WORKDIR /app
 
-# System deps for faiss/sentence-transformers
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
@@ -11,14 +18,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# App code + pre-built artifacts (frontend/dist, indexes, db)
 COPY api/ api/
 COPY src/ src/
 COPY scripts/ scripts/
 COPY data/ data/
 COPY db/ db/
 COPY indexes/ indexes/
-COPY frontend/dist/ frontend/dist/
+COPY --from=frontend-build /app/frontend/dist frontend/dist/
 
 ENV PORT=8000
 EXPOSE 8000

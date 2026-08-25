@@ -1,21 +1,18 @@
 # ParcelPilot AI Support
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/adrija13dg/parcelpilot-ai-support)
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/adrija13dg/parcelpilot-ai-support)
 
 Production-grade AI support agent with **React** frontend and **FastAPI** backend.
 
-## Live demo on GitHub (Codespaces)
+## Live demo (Render — permanent URL)
 
-GitHub Pages only serves static files, so the full app (Python backend + chat) runs on **GitHub Codespaces** with a public URL.
+1. Click **Deploy to Render** above (or [open deploy page](https://render.com/deploy?repo=https://github.com/adrija13dg/parcelpilot-ai-support))
+2. Sign in / connect GitHub → approve the blueprint
+3. Enter **`GROQ_API_KEY`** when prompted (get one free at [console.groq.com](https://console.groq.com))
+4. Wait ~8–12 min for first Docker build → your URL will be `https://parcelpilot-ai-support.onrender.com`
 
-1. Add **`GROQ_API_KEY`** (or `GEMINI_API_KEY` + `LLM_PROVIDER=gemini`) under  
-   **Repo → Settings → Secrets and variables → Codespaces**
-2. Click **Open in GitHub Codespaces** above (or [codespaces.new/adrija13dg/parcelpilot-ai-support](https://codespaces.new/adrija13dg/parcelpilot-ai-support))
-3. Wait ~5–8 min for first-time setup (install deps + build UI)
-4. When port **8000** opens, set visibility to **Public** if prompted, then use that URL
-
-The app serves UI + API from the same port inside the Codespace.
-
+After the first deploy, every push to `main` redeploys automatically.
 ## Stack
 
 | Layer | Tech |
