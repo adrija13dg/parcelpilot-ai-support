@@ -18,6 +18,7 @@ export default function SourcesPage() {
     <div className="sources-page">
       <header className="page-header">
         <div>
+          <div className="header-badge">Knowledge base</div>
           <h2>Source Catalog</h2>
           <p>Documents ranked by reliability — lower rank = higher authority</p>
         </div>

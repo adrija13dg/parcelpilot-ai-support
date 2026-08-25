@@ -33,6 +33,7 @@ export default function IssuesPage() {
     <div className="issues-page">
       <header className="page-header">
         <div>
+          <div className="header-badge">Operations</div>
           <h2>Ops Radar</h2>
           <p>Proactive issue detection · Snapshot {data.snapshot_time}</p>
         </div>

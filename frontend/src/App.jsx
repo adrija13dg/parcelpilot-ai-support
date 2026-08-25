@@ -29,6 +29,9 @@ function AppShell() {
 
   return (
     <div className="app-shell">
+      <div className="ambient-bg" aria-hidden="true">
+        <div className="orb" />
+      </div>
       {backendOk === false && (
         <div className="backend-banner">
           Backend offline — open <strong>http://localhost:8000</strong> after running Start ParcelPilot.bat
