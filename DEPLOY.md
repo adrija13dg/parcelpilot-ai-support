@@ -11,9 +11,15 @@
 
 **Note:** First deploy takes ~8–12 min (Docker builds React + installs ML libs). Free tier sleeps after 15 min idle.
 
-Pushes to `main` auto-redeploy after the blueprint is linked.
+### If deploy keeps failing (stuck on old commit)
 
----
+1. On the blueprint page, click **Manual sync** (top right)
+2. If still failing: **Settings → Delete Blueprint**, then redeploy from  
+   [render.com/deploy?repo=https://github.com/adrija13dg/parcelpilot-ai-support](https://render.com/deploy?repo=https://github.com/adrija13dg/parcelpilot-ai-support)
+3. Check **Logs** on the failed deploy — common issues:
+   - Missing `GROQ_API_KEY`
+   - Build ran out of memory (retry after switching to Python runtime in latest `render.yaml`)
+   - Free tier limit: only **1 free web service** per account
 
 ## Option B — GitHub Codespaces (hosted on GitHub)
 

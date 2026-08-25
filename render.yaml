@@ -1,14 +1,15 @@
 services:
   - type: web
     name: parcelpilot-ai-support
-    runtime: docker
+    runtime: python
     plan: free
-    dockerfilePath: ./Dockerfile
+    buildCommand: bash scripts/render_build.sh
+    startCommand: uvicorn api.main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /api/health
     envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.0"
       - key: LLM_PROVIDER
         value: groq
       - key: GROQ_API_KEY
-        sync: false
-      - key: GEMINI_API_KEY
         sync: false
