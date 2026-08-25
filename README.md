@@ -1,6 +1,20 @@
 # ParcelPilot AI Support
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/adrija13dg/parcelpilot-ai-support)
+
 Production-grade AI support agent with **React** frontend and **FastAPI** backend.
+
+## Live demo on GitHub (Codespaces)
+
+GitHub Pages only serves static files, so the full app (Python backend + chat) runs on **GitHub Codespaces** with a public URL.
+
+1. Add **`GROQ_API_KEY`** (or `GEMINI_API_KEY` + `LLM_PROVIDER=gemini`) under  
+   **Repo → Settings → Secrets and variables → Codespaces**
+2. Click **Open in GitHub Codespaces** above (or [codespaces.new/adrija13dg/parcelpilot-ai-support](https://codespaces.new/adrija13dg/parcelpilot-ai-support))
+3. Wait ~5–8 min for first-time setup (install deps + build UI)
+4. When port **8000** opens, set visibility to **Public** if prompted, then use that URL
+
+The app serves UI + API from the same port inside the Codespace.
 
 ## Stack
 

@@ -1,6 +1,18 @@
 # Deploy ParcelPilot — public URL
 
-## Option A — Render (recommended, permanent free URL)
+## Option A — GitHub Codespaces (hosted on GitHub)
+
+Best if you want everything on GitHub without a third-party host.
+
+1. Repo → **Settings → Secrets and variables → Codespaces** → add `GROQ_API_KEY`
+2. Open [codespaces.new/adrija13dg/parcelpilot-ai-support](https://codespaces.new/adrija13dg/parcelpilot-ai-support)
+3. After setup, open forwarded port **8000** → set **Public** → share that URL
+
+**Note:** Codespaces stop when idle (free tier limits). For a 24/7 URL, use Render below.
+
+---
+
+## Option B — Render (recommended, permanent free URL)
 
 1. **Push to GitHub** (create repo at github.com → upload or `git push`)
 2. Go to [render.com](https://render.com) → **New +** → **Blueprint** → connect repo
@@ -12,7 +24,7 @@
 
 ---
 
-## Option B — Quick demo tunnel (today, laptop must stay on)
+## Option C — Quick demo tunnel (today, laptop must stay on)
 
 ```powershell
 # Terminal 1 — start app
