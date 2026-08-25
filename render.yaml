@@ -3,6 +3,7 @@ services:
     name: parcelpilot-ai-support
     runtime: docker
     plan: free
+    dockerfilePath: ./Dockerfile
     healthCheckPath: /api/health
     envVars:
       - key: LLM_PROVIDER

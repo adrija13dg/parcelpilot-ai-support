@@ -1,0 +1,20 @@
+.git
+.github
+.venv
+venv
+node_modules
+frontend/node_modules
+ui
+logs
+.env
+.env.*
+__pycache__
+*.pyc
+_inspect
+*.md
+!README.md
+Start ParcelPilot.bat
+scripts/start.ps1
+scripts/stop.ps1
+scripts/install-autostart.ps1
+scripts/uninstall-autostart.ps1
